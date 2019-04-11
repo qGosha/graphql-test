@@ -1,0 +1,6 @@
+#endpoint: ''endpoint: https://us1.prisma.sh/igor-morgunov-4073df/graphql-test/dev
+
+datamodel: datamodel.prisma
+generate:
+  - generator: javascript-client
+    output: ../src/generated/prisma-client

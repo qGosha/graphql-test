@@ -1,0 +1,4 @@
+{
+  "watch": ["prisma/", "src/"],
+  "ext": "js, graphql, prisma, yml"
+}

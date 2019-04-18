@@ -1,9 +1,10 @@
 type Link {
   id: ID! @unique
-  createdAt: DateTime!
+  createdAt: DateTime! @createdAt
   description: String!
   url: String!
   postedBy: User
+  updatedAt: DateTime! @updatedAt
   votes: [Vote!]! @relation(name: "LinkToVote", onDelete: CASCADE)
 }
 

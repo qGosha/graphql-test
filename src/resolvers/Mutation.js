@@ -42,16 +42,28 @@ const login = async (parent, args, context, info) => {
 
   const deleteLink = async (parent, args, context, info) => {
     const userId = getUserId(context)
-    // const link = context.prisma.link({id: args.id})
     const linkBelongsToUser = await context.prisma.$exists.link({
-      postedBy: { id: userId },
-      link: { id: args.id },
+      id: args.id,
+      postedBy: { id: userId }
     })
     if (!linkBelongsToUser) {
       throw new Error('You cannot delete other users links')
     }
     return context.prisma.deleteLink({id: args.id})
-    // return link.postedBy().id()
+  }
+
+  const updateLink = async (parent, args, context, info) => {
+    const userId = getUserId(context)
+    const linkBelongsToUser = await context.prisma.$exists.link({
+      id: args.id,
+      postedBy: { id: userId }
+    })
+    if (!linkBelongsToUser) {
+      throw new Error('You cannot change other users links')
+    }
+    return context.prisma.updateLink({
+      data: {url: args.url, description: args.description}, 
+      where: {id: args.id} })
   }
 
    const vote = async (parent, args, context, info) => {
@@ -75,5 +87,6 @@ const login = async (parent, args, context, info) => {
     login,
     post,
     deleteLink,
-    vote
+    vote,
+    updateLink
   }
